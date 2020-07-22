@@ -1,0 +1,54 @@
+body {
+   background-color: #353A47;
+}
+
+.grid-container {
+    background-color: #2B303B;
+    display: inline-grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    position: relative;
+    margin: 75px 0px 175px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.grid-item {
+    display: flex;
+    color: #F0F7EE;
+    background-color: #353A47;
+    justify-content: center;
+    align-items: center;
+    font-family: "Courier";
+    font-weight: bold;
+    font-size: 150px;
+}
+
+.record {
+    color: #F0F7EE;
+    font-family: "Arial";
+    font-weight: bold;
+    font-size: 75px;
+    position: relative;
+    text-align: center;
+    margin: 40px 50px 10px;
+}
+
+.win {
+    color: #4BB3FD;
+}
+
+.draw {
+    color: #FF312E;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+       supported by Chrome, Edge, Opera and Firefox */
+}
