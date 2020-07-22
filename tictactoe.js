@@ -31,7 +31,7 @@ function init() {
                 } else {
                     record[player]++;
                 }
-                recordText.innerHTML = `X ${record.X}-${record.ties}-${record.O} O`;
+                recordText.textContent = `X ${record.X}-${record.ties}-${record.O} O`;
 
                 win.forEach(space => {
                     space.firstChild.className += ` ${condition}`;
@@ -122,13 +122,13 @@ function reset() {
 
 function getSpaceValue(x, y) {
     if(y === undefined)
-        return gridSpaces[x].firstChild.innerHTML;
+        return gridSpaces[x].firstChild.textContent;
     else
-        return gridSpaces[y * gridWidth + x].firstChild.innerHTML;
+        return gridSpaces[y * gridWidth + x].firstChild.textContent;
 }
 
 function setSpaceValue(index, value) {
-    gridSpaces[index].firstChild.innerHTML = value;
+    gridSpaces[index].firstChild.textContent = value;
 }
 
 function getGridSpace(x, y) {
