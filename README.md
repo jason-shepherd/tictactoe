@@ -1,6 +1,10 @@
 # A simple Tic Tac Toe
 My version of tic tac toe is pretty simple. There is no AI or online multiplayer. It's just a way to play tic tac toe with a local friend :). To reset the game after completing a match, just click the board.
 
+![Blank Board](https://i.gyazo.com/503fedde85773f3abefffed00f5b4702.png)
+![X Wins!](https://i.gyazo.com/e4b4063a8ed9b449c628b352b65f2034.png)
+![Cat's Game :(](https://i.gyazo.com/5b2897e16a81fabd59570218c96f2432.png)
+
 # Javascript Practice
 I am just learning javascript, in fact this is my first javascript project. I honestly didn't do much research beforehand on javascript. I just kind of went for it and while I was programming this I tryed to learn as much as possible. This project is guarenteed to be flawed. I'm probably doing a few things that would make a javascript vetern cringe into his esophagus, but that's okay. As long as I can find, change, and learn from those mistakes. 
 
