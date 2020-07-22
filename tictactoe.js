@@ -18,8 +18,9 @@ function init() {
                 reset();
                 return;
             }
-            if(gridSpaces[i].innerHTML != '') return;
-            gridSpaces[i].innerHTML = player;
+            if(getSpaceValue(i) != '') return;
+
+            setSpaceValue(i, player);
             win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth));
             if(win.length !== 0) {
                 let condition = "win";
@@ -33,7 +34,7 @@ function init() {
                 recordText.innerHTML = `X ${record.X}-${record.ties}-${record.O} O`;
 
                 win.forEach(space => {
-                    space.className += ` ${condition}`;
+                    space.firstChild.className += ` ${condition}`;
                 });
                 inPlay = false;
                 return;
@@ -49,7 +50,7 @@ function getWin(x, y) {
     let winSequence = [];
 
     for(let row = 0; row < gridWidth; row++) {
-        if(getGridSpace(row, y).innerHTML != player) {
+        if(getSpaceValue(row, y) != player) {
             winSequence = []
             break;
         } 
@@ -61,7 +62,7 @@ function getWin(x, y) {
     }
     
     for(let col = 0; col < gridWidth; col++) {
-        if(getGridSpace(x, col).innerHTML != player) {
+        if(getSpaceValue(x, col)!= player) {
             winSequence = [];
             break;
         }
@@ -74,7 +75,7 @@ function getWin(x, y) {
     
     if(x == y) {
         for(let dia = 0; dia < gridWidth; dia++) {
-            if(getGridSpace(dia, dia).innerHTML != player) {
+            if(getSpaceValue(dia, dia)!= player) {
                 winSequence = [];
                 break;
             }
@@ -88,7 +89,7 @@ function getWin(x, y) {
     
     if(x + y == gridWidth - 1) {
         for(let redia = 0; redia < gridWidth; redia++) {
-            if(getGridSpace(redia, gridWidth - 1 - redia).innerHTML != player) {
+            if(getSpaceValue(redia, gridWidth - 1 - redia)!= player) {
                 winSequence = [];
                 break;
             }
@@ -113,10 +114,21 @@ function reset() {
     moveCount = 0;
     inPlay = true;
 
-    gridSpaces.forEach(space => {
-        space.className = "grid-item";
-        space.innerHTML = '';
-    });
+    for(let i = 0; i < gridSpaces.length; i++) {
+        gridSpaces[i].firstChild.className = "";
+        setSpaceValue(i, "");
+    }
+}
+
+function getSpaceValue(x, y) {
+    if(y === undefined)
+        return gridSpaces[x].firstChild.innerHTML;
+    else
+        return gridSpaces[y * gridWidth + x].firstChild.innerHTML;
+}
+
+function setSpaceValue(index, value) {
+    gridSpaces[index].firstChild.innerHTML = value;
 }
 
 function getGridSpace(x, y) {
