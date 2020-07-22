@@ -25,8 +25,8 @@ function init() {
             if(win.length !== 0) {
                 let condition = "win";
 
-                if(win.length > 3) {
-                    record.tie++;
+                if(win.length === gridSpaces.length) {
+                    record.ties++;
                     condition = "draw";
                 } else {
                     record[player]++;
