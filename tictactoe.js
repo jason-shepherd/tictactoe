@@ -21,6 +21,8 @@ function init() {
             if(getSpaceValue(i) != '') return;
 
             setSpaceValue(i, player);
+            gridSpaces[i].style.cursor = "default";
+
             win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth));
             if(win.length !== 0) {
                 let condition = "win";
@@ -35,6 +37,10 @@ function init() {
 
                 win.forEach(space => {
                     space.firstChild.className += ` ${condition}`;
+                });
+
+                gridSpaces.forEach(space => {
+                    space.style.cursor = "pointer";
                 });
                 inPlay = false;
                 return;
