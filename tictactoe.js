@@ -36,7 +36,7 @@ function init() {
                 recordText.textContent = `X ${record.X}-${record.ties}-${record.O} O`;
 
                 win.forEach(space => {
-                    space.firstChild.className += ` ${condition}`;
+                    space.firstChild.classList.add(condition);
                 });
 
                 gridSpaces.forEach(space => {
@@ -121,7 +121,8 @@ function reset() {
     inPlay = true;
 
     for(let i = 0; i < gridSpaces.length; i++) {
-        gridSpaces[i].firstChild.className = "";
+        gridSpaces[i].firstChild.classList.remove("win");
+        gridSpaces[i].firstChild.classList.remove("draw");
         setSpaceValue(i, "");
     }
 }
