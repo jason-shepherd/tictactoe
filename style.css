@@ -5,9 +5,8 @@ body {
 .tictactoe-container {
     background-color: #353A47;
     height: 90%;
-    justify-content: center;
-    align-items: center;
     position: absolute;
+    vertical-align: middle;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -19,7 +18,7 @@ body {
     grid-gap: 15px;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(3, auto);
-    margin: 20px;
+    margin: 25px;
 }
 
 .grid-item {
