@@ -6,12 +6,12 @@ body {
     background-color: #2B303B;
     display: inline-grid;
     grid-gap: 15px;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(3, 200px);
-    position: relative;
-    margin: 75px 0px 175px;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 55%;
+    transform: translate(-50%, -50%);
 }
 
 .grid-item {
@@ -33,9 +33,8 @@ body {
     font-family: "Arial";
     font-weight: bold;
     font-size: 75px;
-    position: relative;
     text-align: center;
-    margin: 40px 50px 10px;
+    margin-top: 2px;
 }
 
 .win {
