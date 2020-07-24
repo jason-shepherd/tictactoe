@@ -23,15 +23,15 @@ body {
     background-color: #353A47;
     justify-content: center;
     align-items: center;
-    font-family: 'Varela Round', sans-serif;
+    font-family: Courier;
     font-weight: bold;
     font-size: 150px;
 }
 
 .record {
     color: #F0F7EE;
-    font-family: "Arial";
     font-weight: bold;
+    font-family: 'Varela Round', sans-serif;
     font-size: 75px;
     text-align: center;
     margin-top: 2px;
