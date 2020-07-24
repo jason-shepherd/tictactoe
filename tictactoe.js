@@ -52,66 +52,54 @@ function init() {
     }
 }
 
+function checkRowSpace(index, x, y) {
+    return getGridSpace(index, y);
+}
+
+function checkColSpace(index, x, y) {
+    return getGridSpace(x, index);
+}
+
+function checkDiagonal(index, x, y) {
+    if(x == y)
+        return getGridSpace(index, index);
+    else
+        return null;
+}
+
+function checkAntiDiagonal(index, x, y) {
+    if(x + y == gridWidth - 1)
+        return getGridSpace(index, gridWidth - 1 - index);
+    else
+        return null
+}
+
+const checkFunctions = [checkRowSpace, checkColSpace, checkDiagonal, checkAntiDiagonal];
 function getWin(x, y) {
     let winSequence = [];
 
-    for(let row = 0; row < gridWidth; row++) {
-        if(getSpaceValue(row, y) != player) {
-            winSequence = []
-            break;
-        } 
+    for(let i = 0; i < 4; i++) {
+        for(let j = 0; j < gridWidth; j++) {
+            let currentSpace = checkFunctions[i](j, x, y);
 
-        winSequence.push(getGridSpace(row, y));
-        if(row == gridWidth - 1) {
-            return winSequence;
-        }
-    }
-    
-    for(let col = 0; col < gridWidth; col++) {
-        if(getSpaceValue(x, col)!= player) {
-            winSequence = [];
-            break;
-        }
-
-        winSequence.push(getGridSpace(x, col));
-        if(col == gridWidth - 1) {
-            return winSequence;
-        }
-    }
-    
-    if(x == y) {
-        for(let dia = 0; dia < gridWidth; dia++) {
-            if(getSpaceValue(dia, dia)!= player) {
+            if(getSpaceValue(currentSpace) != player) {
                 winSequence = [];
                 break;
             }
 
-            winSequence.push(getGridSpace(dia, dia));
-            if(dia == gridWidth - 1) {
+            winSequence.push(currentSpace);
+            if(j == gridWidth - 1) {
                 return winSequence;
             }
         }
     }
-    
-    if(x + y == gridWidth - 1) {
-        for(let redia = 0; redia < gridWidth; redia++) {
-            if(getSpaceValue(redia, gridWidth - 1 - redia)!= player) {
-                winSequence = [];
-                break;
-            }
 
-            winSequence.push(getGridSpace(redia, gridWidth - 1 - redia));
-            if(redia == gridWidth - 1) {
-                return winSequence;
-            }
-        }
-    }
-    
     if(moveCount == Math.pow(gridWidth, 2) - 1) {
         return gridSpaces; 
     }
 
-    return [];
+    return winSequence;
+
 }
 
 
@@ -128,7 +116,11 @@ function reset() {
 }
 
 function getSpaceValue(x, y) {
-    if(y === undefined)
+    if(x == null)
+        return
+    else if(typeof x === 'object')
+        return x.firstChild.textContent;
+    else if(y === undefined)
         return gridSpaces[x].firstChild.textContent;
     else
         return gridSpaces[y * gridWidth + x].firstChild.textContent;

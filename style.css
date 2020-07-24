@@ -4,7 +4,7 @@ body {
 
 .tictactoe-container {
     background-color: #353A47;
-    height: 90%;
+    height: 100%;
     position: absolute;
     vertical-align: middle;
     left: 50%;
@@ -18,7 +18,7 @@ body {
     grid-gap: 15px;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(3, auto);
-    margin: 25px;
+    margin: 15px;
 }
 
 .grid-item {
@@ -41,7 +41,7 @@ body {
     font-family: 'Varela Round', sans-serif;
     font-size: 75px;
     text-align: center;
-    margin: 25px;
+    margin: 15px;
 }
 
 .win {
