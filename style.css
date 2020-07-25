@@ -20,9 +20,9 @@ body {
     width: 600px;
     height: 600px;
     grid-gap: 10px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    margin-bottom: 10px;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    margin: 0;
 }
 
 .grid-item {
@@ -73,11 +73,31 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+    .tictactoe-container {
+        position: absolute;
+        width: auto;
+        height: auto;
+        margin: 0;
+        left: 50%;
+        top: 20%;
+        transform: translate(-50%, -20%);
+    }
+
     .grid-container {
-        width: 400px;
-        height: 400px;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        width: 300px;
+        height: 300px;
+        grid-gap: 5px;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        margin: 0;
+    }
+
+    .grid-item {
+        font-size: 100px;
+    }
+
+    .record {
+        font-size: 50px;
     }
 }
 
