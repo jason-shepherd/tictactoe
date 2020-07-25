@@ -72,6 +72,13 @@ body {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+@media only screen and (max-width: 600px) {
+    .grid-container {
+        width: 400px;
+        height: 400px;
+    }
+}
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
