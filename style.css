@@ -4,9 +4,10 @@ body {
 
 .tictactoe-container {
     background-color: #353A47;
+    position: absolute;
     width: auto;
     height: auto;
-    position: absolute;
+    margin: 10px;
     vertical-align: middle;
     left: 50%;
     top: 20%;
@@ -16,16 +17,16 @@ body {
 .grid-container {
     background-color: #2B303B;
     display: inline-grid;
-    grid-gap: 15px;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(3, auto);
-    margin: 10px;
+    width: 600px;
+    height: 600px;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    margin-bottom: 10px;
 }
 
 .grid-item {
     display: flex;
-    width: 200px;
-    height: 200px;
     color: #F0F7EE;
     cursor: pointer;
     background-color: #353A47;
