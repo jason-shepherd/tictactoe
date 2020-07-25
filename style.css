@@ -20,8 +20,8 @@ body {
     width: 600px;
     height: 600px;
     grid-gap: 10px;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(3, 200px);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     margin-bottom: 10px;
 }
 
@@ -76,6 +76,8 @@ body {
     .grid-container {
         width: 400px;
         height: 400px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
     }
 }
 
