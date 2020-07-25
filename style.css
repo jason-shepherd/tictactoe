@@ -19,13 +19,13 @@ body {
     grid-gap: 15px;
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(3, auto);
-    margin: 15px;
+    margin: 10px;
 }
 
 .grid-item {
     display: flex;
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
     color: #F0F7EE;
     cursor: pointer;
     background-color: #353A47;
@@ -33,16 +33,16 @@ body {
     align-items: center;
     font-family: 'Varela Round', sans-serif;
     font-weight: bold;
-    font-size: 275px;
+    font-size: 175px;
 }
 
 .record {
     color: #F0F7EE;
     font-weight: bold;
     font-family: 'Varela Round', sans-serif;
-    font-size: 125px;
+    font-size: 75px;
     text-align: center;
-    margin: 30px;
+    margin: 15px;
 }
 
 .win {
