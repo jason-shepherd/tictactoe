@@ -4,11 +4,9 @@ body {
 
 .tictactoe-container {
     background-color: #353A47;
-    position: absolute;
     width: auto;
     height: auto;
-    margin: 10px;
-    vertical-align: middle;
+    position: absolute;
     left: 50%;
     top: 20%;
     transform: translate(-50%, -20%);
@@ -22,14 +20,13 @@ body {
     grid-gap: 10px;
     grid-template-columns: repeat(3, 200px);
     grid-template-rows: repeat(3, 200px);
-    margin: 0;
 }
 
 .grid-item {
-    display: flex;
-    color: #F0F7EE;
-    cursor: pointer;
     background-color: #353A47;
+    color: #F0F7EE;
+    display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
     font-family: 'Varela Round', sans-serif;
@@ -41,8 +38,9 @@ body {
     color: #F0F7EE;
     font-weight: bold;
     font-family: 'Varela Round', sans-serif;
-    font-size: 100px;
     text-align: center;
+    font-size: 100px;
+    width: 100%;
     margin: 15px;
 }
 
@@ -77,7 +75,6 @@ body {
         position: absolute;
         width: auto;
         height: auto;
-        margin: 0;
         left: 50%;
         top: 20%;
         transform: translate(-50%, -20%);
@@ -98,6 +95,7 @@ body {
 
     .record {
         font-size: 50px;
+        margin: 7px;
     }
 }
 
