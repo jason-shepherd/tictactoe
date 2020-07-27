@@ -2,7 +2,9 @@ const gridSpaces = document.querySelectorAll('[data-spaces]');
 const recordText = document.querySelector('[data-record]');
 const gridWidth = Math.sqrt(gridSpaces.length);
 
-let player = 'X';
+ai = "O"
+player = "X"
+
 let record = {
     X: 0,
     O: 0,
@@ -23,7 +25,7 @@ function init() {
             setSpaceValue(i, player);
             gridSpaces[i].style.cursor = "default";
 
-            win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth));
+            win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth), player);
             if(win.length !== 0) {
                 let condition = "win";
 
@@ -46,7 +48,6 @@ function init() {
                 return;
             }
     
-            player = player == 'O' ? 'X' : 'O';
             moveCount++;
         });
     }
@@ -75,14 +76,14 @@ function checkAntiDiagonal(index, x, y) {
 }
 
 const checkFunctions = [checkRowSpace, checkColSpace, checkDiagonal, checkAntiDiagonal];
-function getWin(x, y) {
+function getWin(x, y, currentPlayer) {
     let winSequence = [];
 
     for(let i = 0; i < 4; i++) {
         for(let j = 0; j < gridWidth; j++) {
             let currentSpace = checkFunctions[i](j, x, y);
 
-            if(getSpaceValue(currentSpace) != player) {
+            if(getSpaceValue(currentSpace) != currentPlayer) {
                 winSequence = [];
                 break;
             }
@@ -100,6 +101,24 @@ function getWin(x, y) {
 
     return winSequence;
 
+}
+
+function minimax(board, depth, maximizingPlayer) {
+    if(depth == 0 )
+        return
+    if(maximizingPlayer) {
+        value = -10
+
+    }
+}
+
+function evaluateMove(x, y) {
+    if(getWin(x, y, "O").length == 3)
+        return 10;
+    else if(getWin(x, y, "X").length == 3)
+        return -10;
+    else
+        return 0;
 }
 
 
