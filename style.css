@@ -37,11 +37,11 @@ body {
 .record {
     color: #F0F7EE;
     font-weight: bold;
-    font-family: 'Varela Round', sans-serif;
     text-align: center;
+    font-family: 'Varela Round', sans-serif;
     font-size: 100px;
     width: 100%;
-    margin: 15px;
+    margin: 18px;
 }
 
 .win {
@@ -95,7 +95,7 @@ body {
 
     .record {
         font-size: 50px;
-        margin: 7px;
+        margin: 8px;
     }
 }
 
