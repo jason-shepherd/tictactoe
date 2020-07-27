@@ -41,7 +41,7 @@ body {
     font-family: 'Varela Round', sans-serif;
     font-size: 100px;
     width: 100%;
-    margin: 18px;
+    margin: 6px 18px;
 }
 
 .win {
@@ -70,7 +70,7 @@ body {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px), (max-height: 735px) {
     .tictactoe-container {
         position: absolute;
         width: auto;
@@ -81,12 +81,11 @@ body {
     }
 
     .grid-container {
-        width: 300px;
-        height: 300px;
         grid-gap: 5px;
-        grid-template-columns: repeat(3, 100px);
-        grid-template-rows: repeat(3, 100px);
-        margin: 0;
+        width: 270px;
+        height: 270px;
+        grid-template-columns: repeat(3, 90px);
+        grid-template-rows: repeat(3, 90px);
     }
 
     .grid-item {
@@ -94,8 +93,8 @@ body {
     }
 
     .record {
-        font-size: 50px;
-        margin: 10px;
+        font-size: 40px;
+        margin: 0px 5px;
     }
 }
 
