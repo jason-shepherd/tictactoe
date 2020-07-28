@@ -82,10 +82,10 @@ body {
 
     .grid-container {
         grid-gap: 5px;
-        width: 270px;
-        height: 270px;
-        grid-template-columns: repeat(3, 90px);
-        grid-template-rows: repeat(3, 90px);
+        width: 255px;
+        height: 255px;
+        grid-template-columns: repeat(3, 85px);
+        grid-template-rows: repeat(3, 85px);
     }
 
     .grid-item {
