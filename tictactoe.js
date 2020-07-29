@@ -26,51 +26,58 @@ function init() {
             gridSpaces[i].style.cursor = "default";
 
             win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth), player);
-            if(win.length !== 0) {
-                let condition = "win";
-
-                if(win.length === gridSpaces.length) {
-                    record.ties++;
-                    condition = "draw";
-                } else {
-                    record[player]++;
-                }
-                recordText.textContent = `X ${record.X}-${record.ties}-${record.O} O`;
-
-                win.forEach(space => {
-                    space.firstChild.classList.add(condition);
-                });
-
-                gridSpaces.forEach(space => {
-                    space.style.cursor = "pointer";
-                });
-                inPlay = false;
-                return;
-            }
-    
+            displayWin(win, player);
+            moveCount++;
+            let aiMove = makeAiMove();
+            win = getWin(Math.floor(aiMove % gridWidth), Math.floor(aiMove / gridWidth), ai);
+            displayWin(win, ai);
             moveCount++;
         });
     }
 }
 
-function checkRowSpace(index, x, y) {
-    return getGridSpace(index, y);
+function displayWin(win, currentPlayer) {
+    if(win.length !== 0) {
+        let condition = "win";
+
+        if(win.length === gridSpaces.length) {
+            record.ties++;
+            condition = "draw";
+        } else {
+            record[currentPlayer]++;
+        }
+        recordText.textContent = `X ${record.X}-${record.ties}-${record.O} O`;
+
+        win.forEach(space => {
+            space.firstChild.classList.add(condition);
+        });
+
+        gridSpaces.forEach(space => {
+            space.style.cursor = "pointer";
+        });
+        inPlay = false;
+        return;
+    }
 }
 
-function checkColSpace(index, x, y) {
-    return getGridSpace(x, index);
+function checkRowSpace(index, x, y, board) {
+    return getGridSpace(index, y, board);
 }
 
-function checkDiagonal(index, x, y) {
+function checkColSpace(index, x, y, board) {
+    return getGridSpace(x, index, board);
+}
+
+function checkDiagonal(index, x, y, board) {
     if(x == y)
-        return getGridSpace(index, index);
+        return getGridSpace(index, index, board);
     else
         return null;
 }
 
-function checkAntiDiagonal(index, x, y) {
+function checkAntiDiagonal(index, x, y, board) {
     if(x + y == gridWidth - 1)
-        return getGridSpace(index, gridWidth - 1 - index);
+        return getGridSpace(index, gridWidth - 1 - index, board);
     else
         return null
 }
@@ -103,24 +110,86 @@ function getWin(x, y, currentPlayer) {
 
 }
 
-function minimax(board, depth, maximizingPlayer) {
-    if(depth == 0 )
-        return
-    if(maximizingPlayer) {
-        value = -10
+function makeAiMove() {
+    let bestVal = -11;
+    let bestMove;
+    let newBoard = [];
 
+    gridSpaces.forEach(space => {
+        newBoard.push(getSpaceValue(space));
+    });
+
+    for(let i = 0; i < newBoard.length; i++) {
+        if(newBoard[i] == '') {
+            newBoard[i] = 'O';
+            let value = minimax(newBoard, 9, false);
+            if(value > bestVal) {
+                bestVal = value;
+                bestMove = i;
+            }
+            newBoard[i] = '';
+        }
+    }
+
+    setSpaceValue(bestMove, 'O');
+    return bestMove;
+}
+
+function minimax(board, depth, maximizingPlayer) {
+    let score = scoreBoard(board, maximizingPlayer);
+    if(depth == 0 || isTerminating(board) || score != 0)
+        return score;
+    if(maximizingPlayer) {
+        let value = -10;
+        for(let i = 0; i < board.length; i++) {
+            if(board[i] == '') {
+                board[i] = 'O';
+                value = Math.max(value, minimax(board, depth - 1, false));
+                board[i] = '';
+            }
+        }
+        return value;
+    } else {
+        let value = 10;
+        for(let i = 0; i < board.length; i++) {
+            if(board[i] == '') {
+                board[i] = 'X';
+                value = Math.min(value, minimax(board, depth - 1, true));
+                board[i] = '';
+            }
+        }
+        return value;
     }
 }
 
-function evaluateMove(x, y) {
-    if(getWin(x, y, "O").length == 3)
-        return 10;
-    else if(getWin(x, y, "X").length == 3)
-        return -10;
-    else
-        return 0;
+function isTerminating(board) {
+    for(let i = 0; i < board.length; i++) {
+        if(board[i] == '')
+            return false;
+    }
+    return true;
 }
 
+function scoreBoard(board, maximizingPlayer) {
+    let currentPlayer = maximizingPlayer ? "O" : "X";
+    for(let t = 0; t < 3; t++) {
+        for(let i = 0; i < 4; i++) {
+            for(let j = 0; j < gridWidth; j++) {
+                if(checkFunctions[i](j, t, t, board) != currentPlayer) {
+                    break;
+                }
+
+                if(j == gridWidth - 1) {
+                    if(currentPlayer == 'O')
+                        return 10;
+                    else 
+                        return -10;
+                }
+            }
+        }
+    }
+    return 0;
+}
 
 function reset() {
     player = "X";
@@ -134,12 +203,12 @@ function reset() {
     }
 }
 
-function getSpaceValue(x, y) {
+function getSpaceValue(x, y, board) {
     if(x == null)
-        return
+        return;
     else if(typeof x === 'object')
         return x.firstChild.textContent;
-    else if(y === undefined)
+    else if(y == undefined)
         return gridSpaces[x].firstChild.textContent;
     else
         return gridSpaces[y * gridWidth + x].firstChild.textContent;
@@ -149,8 +218,11 @@ function setSpaceValue(index, value) {
     gridSpaces[index].firstChild.textContent = value;
 }
 
-function getGridSpace(x, y) {
-    return gridSpaces[y * gridWidth + x];
+function getGridSpace(x, y, board) {
+    if(board != undefined)
+        return board[y * gridWidth + x];
+    else
+        return gridSpaces[y * gridWidth + x];
 }
 
 init();
