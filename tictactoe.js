@@ -83,14 +83,19 @@ function checkAntiDiagonal(index, x, y, board) {
 }
 
 const checkFunctions = [checkRowSpace, checkColSpace, checkDiagonal, checkAntiDiagonal];
-function getWin(x, y, currentPlayer) {
+function getWin(x, y, currentPlayer, board) {
     let winSequence = [];
 
     for(let i = 0; i < 4; i++) {
         for(let j = 0; j < gridWidth; j++) {
-            let currentSpace = checkFunctions[i](j, x, y);
-
-            if(getSpaceValue(currentSpace) != currentPlayer) {
+            let currentSpace = checkFunctions[i](j, x, y, board);
+            
+            if(board == undefined) {
+                if(getSpaceValue(currentSpace) != currentPlayer) {
+                    winSequence = [];
+                    break;
+                }
+            } else if(currentSpace != currentPlayer) {
                 winSequence = [];
                 break;
             }
@@ -170,23 +175,18 @@ function isTerminating(board) {
     return true;
 }
 
-function scoreBoard(board, maximizingPlayer) {
-    let currentPlayer = maximizingPlayer ? "O" : "X";
-    for(let t = 0; t < 3; t++) {
-        for(let i = 0; i < 4; i++) {
-            for(let j = 0; j < gridWidth; j++) {
-                if(checkFunctions[i](j, t, t, board) != currentPlayer) {
-                    break;
-                }
-
-                if(j == gridWidth - 1) {
-                    if(currentPlayer == 'O')
-                        return 10;
-                    else 
-                        return -10;
-                }
+function scoreBoard(board) {
+    let currentPlayer = "O";
+    for(let i = 0; i < 2; i++) {
+        for(let j = 0; j < 3; j++) {
+            if(getWin(j, j, currentPlayer, board).length == 3) {
+                if(currentPlayer == "O")
+                    return 10;
+                else
+                    return -10
             }
         }
+        currentPlayer = "X";
     }
     return 0;
 }
