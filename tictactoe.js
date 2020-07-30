@@ -141,7 +141,7 @@ function makeAiMove() {
 }
 
 function minimax(board, depth, maximizingPlayer) {
-    let score = scoreBoard(board, maximizingPlayer);
+    let score = scoreBoard(board, depth);
     if(depth == 0 || isTerminating(board) || score != 0)
         return score;
     if(maximizingPlayer) {
@@ -175,15 +175,15 @@ function isTerminating(board) {
     return true;
 }
 
-function scoreBoard(board) {
+function scoreBoard(board, depth) {
     let currentPlayer = "O";
     for(let i = 0; i < 2; i++) {
         for(let j = 0; j < 3; j++) {
             if(getWin(j, j, currentPlayer, board).length == 3) {
                 if(currentPlayer == "O")
-                    return 10;
+                    return 10 - (9 - depth);
                 else
-                    return -10
+                    return -10 + (9 - depth);
             }
         }
         currentPlayer = "X";
