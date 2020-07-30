@@ -4,7 +4,7 @@ body {
 
 .tictactoe-container {
     background-color: #353A47;
-    width: auto;
+    width: 600px;
     height: auto;
     position: absolute;
     left: 50%;
@@ -44,6 +44,14 @@ body {
     margin: 6px 18px;
 }
 
+.ai-select {
+    color: #F0F7EE;
+    background-color: #353A47;
+    width: 300px;
+    height: 50px;
+    margin: 10px 150px;
+}
+
 .win {
     color: #4BB3FD;
     animation: shake 0.5s;
@@ -70,10 +78,10 @@ body {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@media only screen and (max-width: 600px), (max-height: 735px) {
+@media only screen and (max-width: 600px), (max-height: 800px) {
     .tictactoe-container {
         position: absolute;
-        width: auto;
+        width: 255px;
         height: auto;
         left: 50%;
         top: 20%;
@@ -81,20 +89,28 @@ body {
     }
 
     .grid-container {
-        width: 300px;
-        height: 300px;
+        width: 255px;
+        height: 255px;
         grid-gap: 5px;
-        grid-template-columns: repeat(3, 100px);
-        grid-template-rows: repeat(3, 100px);
+        grid-template-columns: repeat(3, 85px);
+        grid-template-rows: repeat(3, 85px);
     }
 
     .grid-item {
-        font-size: 100px;
+        font-size: 75px;
     }
 
     .record {
-        font-size: 50px;
-        margin: 3px 10px;
+        font-size: 40px;
+        margin: 0px 10px;
+    }
+
+    .ai-select {
+        color: #F0F7EE;
+        background-color: #353A47;
+        width: 150px;
+        height: 25px;
+        margin: 5px 55px 0px;
     }
 }
 

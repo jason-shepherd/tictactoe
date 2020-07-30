@@ -1,9 +1,12 @@
 const gridSpaces = document.querySelectorAll('[data-spaces]');
 const recordText = document.querySelector('[data-record]');
+const difficultySelect = document.querySelector('[data-select]')
 const gridWidth = Math.sqrt(gridSpaces.length);
 
-ai = "O"
-player = "X"
+let opponent = "O"
+let player = "X"
+
+let difficulty;
 
 let record = {
     X: 0,
@@ -14,6 +17,7 @@ let moveCount = 0;
 let inPlay = true;
 
 function init() {
+    updateDifficulty();
     for(let i = 0; i < gridSpaces.length; i++) {
         gridSpaces[i].addEventListener('click', () => {
             if(!inPlay) {
@@ -24,14 +28,16 @@ function init() {
 
             setSpaceValue(i, player);
             gridSpaces[i].style.cursor = "default";
-
             win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth), player);
             displayWin(win, player);
             moveCount++;
-            let aiMove = makeAiMove();
-            win = getWin(Math.floor(aiMove % gridWidth), Math.floor(aiMove / gridWidth), ai);
-            displayWin(win, ai);
-            moveCount++;
+            
+            if(inPlay) {
+                if(difficulty != 0)
+                    makeAiMove();
+                else 
+                    player = player == "O" ? "X" : "O";
+            }
         });
     }
 }
@@ -127,7 +133,7 @@ function makeAiMove() {
     for(let i = 0; i < newBoard.length; i++) {
         if(newBoard[i] == '') {
             newBoard[i] = 'O';
-            let value = minimax(newBoard, 9, false);
+            let value = minimax(newBoard, difficulty, false);
             if(value > bestVal) {
                 bestVal = value;
                 bestMove = i;
@@ -137,7 +143,9 @@ function makeAiMove() {
     }
 
     setSpaceValue(bestMove, 'O');
-    return bestMove;
+    win = getWin(Math.floor(bestMove % gridWidth), Math.floor(bestMove / gridWidth), opponent);
+    displayWin(win, opponent);
+    moveCount++;
 }
 
 function minimax(board, depth, maximizingPlayer) {
@@ -181,14 +189,39 @@ function scoreBoard(board, depth) {
         for(let j = 0; j < 3; j++) {
             if(getWin(j, j, currentPlayer, board).length == 3) {
                 if(currentPlayer == "O")
-                    return 10 - (9 - depth);
+                    return 10 - (difficulty - depth);
                 else
-                    return -10 + (9 - depth);
+                    return -10 + (difficulty - depth);
             }
         }
         currentPlayer = "X";
     }
     return 0;
+}
+
+function updateDifficulty() {
+    if(difficultySelect.value != "friend") {
+        switch(difficultySelect.value) {
+            case "easy":
+                difficulty = 3;
+                break;
+            case "medium":
+                difficulty = 4;
+                break;
+            case "hard":
+                difficulty = 5;
+                break;
+            case "unbeatable":
+                difficulty = 9;
+                break;
+        }
+        if(player == "O") {
+            player = "X";
+            makeAiMove();
+        }
+    } else {
+        difficulty = 0;
+    }
 }
 
 function reset() {
