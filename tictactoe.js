@@ -129,22 +129,26 @@ function makeAiMove() {
     gridSpaces.forEach(space => {
         newBoard.push(getSpaceValue(space));
     });
+    
+    let possibleMoves = getBoardChildren(newBoard, "O");
+    if(difficulty != 9)
+        possibleMoves.sort((a, b) => {return 0.5 - Math.random()})
 
-    for(let i = 0; i < newBoard.length; i++) {
-        if(newBoard[i] == '') {
-            newBoard[i] = 'O';
-            let value = minimax(newBoard, difficulty, false);
-            if(value > bestVal) {
-                bestVal = value;
-                bestMove = i;
-            }
-            newBoard[i] = '';
+    possibleMoves.forEach(child => {
+        let value = minimax(child, difficulty, false);
+        if(value > bestVal) {
+            bestVal = value;
+            bestMove = child;
+        }
+    });
+
+    for(let i = 0; i < bestMove.length; i++) {
+        if(getSpaceValue(i) != bestMove[i]) {
+            setSpaceValue(i, 'O');
+            let win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth), opponent);
+            displayWin(win, opponent);
         }
     }
-
-    setSpaceValue(bestMove, 'O');
-    win = getWin(Math.floor(bestMove % gridWidth), Math.floor(bestMove / gridWidth), opponent);
-    displayWin(win, opponent);
     moveCount++;
 }
 
@@ -154,25 +158,29 @@ function minimax(board, depth, maximizingPlayer) {
         return score;
     if(maximizingPlayer) {
         let value = -10;
-        for(let i = 0; i < board.length; i++) {
-            if(board[i] == '') {
-                board[i] = 'O';
-                value = Math.max(value, minimax(board, depth - 1, false));
-                board[i] = '';
-            }
-        }
+        getBoardChildren(board, 'O').forEach(child => {
+            value = Math.max(value, minimax(child, depth - 1, false));
+        });
         return value;
     } else {
         let value = 10;
-        for(let i = 0; i < board.length; i++) {
-            if(board[i] == '') {
-                board[i] = 'X';
-                value = Math.min(value, minimax(board, depth - 1, true));
-                board[i] = '';
-            }
-        }
+        getBoardChildren(board, "X").forEach(child => {
+            value = Math.min(value, minimax(child, depth - 1, true));
+        });
         return value;
     }
+}
+
+function getBoardChildren(board, currentPlayer) {
+    let children = [];
+    for(let i = 0; i < board.length; i++) {
+        if(board[i] == '') {
+            board[i] = currentPlayer;
+            children.push([...board]);
+            board[i] = '';
+        }
+    }
+    return children;
 }
 
 function isTerminating(board) {
@@ -203,13 +211,10 @@ function updateDifficulty() {
     if(difficultySelect.value != "friend") {
         switch(difficultySelect.value) {
             case "easy":
-                difficulty = 3;
+                difficulty = 1;
                 break;
             case "medium":
                 difficulty = 4;
-                break;
-            case "hard":
-                difficulty = 5;
                 break;
             case "unbeatable":
                 difficulty = 9;
