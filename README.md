@@ -1,9 +1,9 @@
 # A simple Tic Tac Toe
 My version of tic tac toe is pretty simple. The AI uses the minimax algorithm to choose a move. If you happen to have a friend you can also play with this (on the same pc). To reset the game after completing a match, just click the board.
 
-![Playing](https://i.gyazo.com/486b8b7997db8c90cdb6ad488ba618ce.gif)
-![X Wins!](https://i.gyazo.com/9b9555492d95a5636af88729b3327230.gif)
-![Cat's Game :(](https://i.gyazo.com/c94ca82629d4297510e401b81786c607.gif)
+![Unbeatable AI](https://i.gyazo.com/ce9a1d2efbf36cb108abf5ac2f003d9e.gif)
+![Play with a friend](https://i.gyazo.com/d3762582ed56816a9a565183471330dd.gif)
+![Medium AI](https://i.gyazo.com/42cb8fd8d8bed8d0d6584e2e83006d14.gif)
 
 # Javascript Practice
 I am just learning javascript, in fact this is my first javascript project. I honestly didn't do much research beforehand on javascript. I just kind of went for it and while I was programming this I tryed to learn as much as possible. This project is guarenteed to be flawed. I'm probably doing a few things that would make a javascript vetern cringe into his esophagus, but that's okay. As long as I can find, change, and learn from those mistakes.
