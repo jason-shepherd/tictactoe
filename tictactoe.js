@@ -1,13 +1,14 @@
+//Get the board, record, and select html elements
 const gridSpaces = document.querySelectorAll('[data-spaces]');
 const recordText = document.querySelector('[data-record]');
 const difficultySelect = document.querySelector('[data-select]')
+
 const gridWidth = Math.sqrt(gridSpaces.length);
 
 let opponent = "O"
 let player = "X"
 
 let difficulty;
-
 let record = {
     X: 0,
     O: 0,
@@ -18,6 +19,7 @@ let inPlay = true;
 
 function init() {
     updateDifficulty();
+    //Init the board spaces with an event listener
     for(let i = 0; i < gridSpaces.length; i++) {
         gridSpaces[i].addEventListener('click', () => {
             if(!inPlay) {
@@ -26,12 +28,14 @@ function init() {
             }
             if(getSpaceValue(i) != '') return;
 
+            //Player's move
             setSpaceValue(i, player);
             gridSpaces[i].style.cursor = "default";
             win = getWin(Math.floor(i % gridWidth), Math.floor(i / gridWidth), player);
             displayWin(win, player);
             moveCount++;
             
+            //AI move
             if(inPlay) {
                 if(difficulty != 0)
                     makeAiMove();
@@ -39,30 +43,6 @@ function init() {
                     player = player == "O" ? "X" : "O";
             }
         });
-    }
-}
-
-function displayWin(win, currentPlayer) {
-    if(win.length !== 0) {
-        let condition = "win";
-
-        if(win.length === gridSpaces.length) {
-            record.ties++;
-            condition = "draw";
-        } else {
-            record[currentPlayer]++;
-        }
-        recordText.textContent = `X ${record.X}-${record.ties}-${record.O} O`;
-
-        win.forEach(space => {
-            space.firstChild.classList.add(condition);
-        });
-
-        gridSpaces.forEach(space => {
-            space.style.cursor = "pointer";
-        });
-        inPlay = false;
-        return;
     }
 }
 
@@ -121,6 +101,30 @@ function getWin(x, y, currentPlayer, board) {
 
 }
 
+function displayWin(win, currentPlayer) {
+    if(win.length !== 0) {
+        let condition = "win";
+
+        if(win.length === gridSpaces.length) {
+            record.ties++;
+            condition = "draw";
+        } else {
+            record[currentPlayer]++;
+        }
+        recordText.textContent = `X ${record.X}-${record.ties}-${record.O} O`;
+
+        win.forEach(space => {
+            space.firstChild.classList.add(condition);
+        });
+
+        gridSpaces.forEach(space => {
+            space.style.cursor = "pointer";
+        });
+        inPlay = false;
+        return;
+    }
+}
+
 function makeAiMove() {
     let bestVal = -11;
     let bestMove;
@@ -133,7 +137,6 @@ function makeAiMove() {
     let possibleMoves = getBoardChildren(newBoard, "O");
     if(difficulty != 9)
         possibleMoves.sort((a, b) => {return 0.5 - Math.random()})
-
     possibleMoves.forEach(child => {
         let value = minimax(child, difficulty, false);
         if(value > bestVal) {
@@ -158,13 +161,13 @@ function minimax(board, depth, maximizingPlayer) {
         return score;
     if(maximizingPlayer) {
         let value = -10;
-        getBoardChildren(board, 'O').forEach(child => {
+        getBoardChildren(board, opponent).forEach(child => {
             value = Math.max(value, minimax(child, depth - 1, false));
         });
         return value;
     } else {
         let value = 10;
-        getBoardChildren(board, "X").forEach(child => {
+        getBoardChildren(board, player).forEach(child => {
             value = Math.min(value, minimax(child, depth - 1, true));
         });
         return value;
