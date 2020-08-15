@@ -4,7 +4,7 @@ body {
 
 .tictactoe-container {
     background-color: #353A47;
-    width: 600px;
+    width: 77vh;
     height: auto;
     position: absolute;
     left: 50%;
@@ -15,11 +15,11 @@ body {
 .grid-container {
     background-color: #2B303B;
     display: inline-grid;
-    width: 600px;
-    height: 600px;
-    grid-gap: 10px;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(3, 200px);
+    width: auto;
+    height: auto;
+    grid-gap: 1vh;
+    grid-template-columns: repeat(3, 25vh);
+    grid-template-rows: repeat(3, 25vh);
 }
 
 .grid-item {
@@ -31,7 +31,7 @@ body {
     align-items: center;
     font-family: 'Varela Round', sans-serif;
     font-weight: bold;
-    font-size: 175px;
+    font-size: 25vh;
 }
 
 .record {
@@ -39,18 +39,18 @@ body {
     font-weight: bold;
     text-align: center;
     font-family: 'Varela Round', sans-serif;
-    font-size: 100px;
+    font-size: 10vh;
     white-space: nowrap;
-    width: 100%;
-    margin: 6px 18px;
+    margin: 2vh 1%;
 }
 
 .ai-select {
     color: #F0F7EE;
     background-color: #353A47;
-    width: 300px;
-    height: 50px;
-    margin: 10px 150px;
+    font-size: 3vh;
+    width: 40%;
+    height: 15%;
+    margin: 1vh 30%;
 }
 
 .win {
@@ -79,46 +79,6 @@ body {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@media only screen and (max-width: 600px), (max-height: 800px) {
-    .tictactoe-container {
-        position: absolute;
-        width: 255px;
-        height: auto;
-        left: 50%;
-        top: 20%;
-        transform: translate(-50%, -20%);
-    }
-
-    .grid-container {
-        grid-gap: 5px;
-        width: 255px;
-        height: 255px;
-        width: 255px;
-        height: 255px;
-        grid-gap: 5px;
-        grid-template-columns: repeat(3, 85px);
-        grid-template-rows: repeat(3, 85px);
-    }
-
-    .grid-item {
-        font-size: 75px;
-    }
-
-    .record {
-        font-size: 40px;
-        margin: 0px 5px;
-        margin: 0px 10px;
-    }
-
-    .ai-select {
-        color: #F0F7EE;
-        background-color: #353A47;
-        width: 150px;
-        height: 25px;
-        margin: 5px 55px 0px;
-    }
-}
-
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -127,4 +87,28 @@ body {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
        supported by Chrome, Edge, Opera and Firefox */
+}
+
+@media screen and (orientation:portrait) {
+    .tictactoe-container {
+        width: 77vw;
+    }
+
+    .grid-container {
+        grid-gap: 1vw;
+        grid-template-columns: repeat(3, 25vw);
+        grid-template-rows: repeat(3, 25vw);
+    }
+
+    .grid-item {
+        font-size: 25vw;
+    }
+    
+    .record {
+        font-size: 10vw;
+    }
+
+    .ai-select {
+        font-size: 3vw;
+    }
 }
