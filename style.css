@@ -41,7 +41,7 @@ body {
     font-family: 'Varela Round', sans-serif;
     font-size: 10vh;
     white-space: nowrap;
-    margin: 2vh 1%;
+    margin: 2vh auto;
 }
 
 .ai-select {
